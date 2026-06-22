@@ -1,0 +1,37 @@
+实验三 呼吸灯实验说明
+一、实验名称
+ESP32 PWM LED呼吸灯实验
+二、实验目的
+1. 了解PWM脉冲宽度调制原理。
+2. 学会使用ESP32的PWM通道调节LED亮度。
+3. 实现LED由暗到亮、由亮到暗的呼吸渐变效果。
+三、实验器材
+ESP32开发板、USB数据线、电脑、Arduino IDE
+四、实验原理
+PWM通过快速高低电平切换，利用占空比改变灯光平均亮度。占空比越高，LED越亮；占空比越低，LED越暗。通过循环逐步增减PWM数值，即可实现平滑呼吸灯效果。
+五、实验步骤
+1. 连接ESP32与电脑，选择对应开发板与端口。
+2. 配置PWM频率、分辨率，绑定LED引脚。
+3. 使用for循环递增、递减占空比，实现亮度渐变。
+4. 上传代码，观察呼吸灯效果。
+5. 通过修改delay值改变呼吸速度。
+六、核心代码
+const int ledPin = 2;
+const int freq = 5000;
+const int resolution = 8;
+void setup() {
+  Serial.begin(115200);
+ ledcAttach(ledPin, freq, resolution);
+}
+void loop() {
+  for(int d=0;d<=255;d++){ ledcWrite(ledPin,d);delay(10); }
+  for(int d=255;d>=0;d--){ ledcWrite(ledPin,d);delay(10); }
+}
+七、实验现象
+LED亮度平滑由暗变亮、再由亮变暗，循环往复，呈现柔和呼吸效果。
+八、常见问题
+1. LED不亮：检查引脚、开发板型号、端口。
+2. 呼吸不流畅：调低速度、提高分辨率。
+3. 上传失败：按住BOOT键重新上传。
+九、实验总结
+本次实验掌握了ESP32 PWM调光原理，学会使用ledc通道调节灯光亮度，成功实现呼吸灯效果，理解了占空比对亮度的控制逻辑。
